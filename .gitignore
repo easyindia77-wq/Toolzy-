@@ -1,0 +1,34 @@
+# dependencies
+node_modules
+
+# next.js
+.next
+out
+
+# production
+build
+dist
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env
+.env.local
+.env.production
+
+# uploads
+backend/src/uploads/*
+backend/src/output/*
+backend/src/temp/*
+
+# keep folders
+!backend/src/uploads/.gitkeep
+!backend/src/output/.gitkeep
+!backend/src/temp/.gitkeep
+
+# system files
+.DS_Store
+Thumbs.db

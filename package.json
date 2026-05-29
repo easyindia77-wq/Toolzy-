@@ -1,0 +1,27 @@
+{
+  "name": "toolzy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Toolzy - Free Online PDF Tools Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "frontend": "npm run dev --prefix frontend",
+    "backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [
+    "toolzy",
+    "pdf-tools",
+    "compress-pdf",
+    "merge-pdf",
+    "image-to-pdf",
+    "pdf-to-word",
+    "resize-pdf"
+  ],
+  "author": "Toolzy",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
