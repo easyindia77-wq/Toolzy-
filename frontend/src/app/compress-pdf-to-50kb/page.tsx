@@ -6,7 +6,7 @@ import Loader from "../../components/Loader";
 import DownloadButton from "../../components/DownloadButton";
 import { compressPDF } from "../../lib/api";
 
-export default function CompressPDF50kbPage() {
+export default function CompressPdf50kbPage() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -27,14 +27,15 @@ export default function CompressPDF50kbPage() {
     try {
       const data = await compressPDF(file);
 
-      if (data.success) {
+      if (data?.success && data?.downloadUrl) {
         setDownloadUrl(data.downloadUrl);
         setSuccess("PDF compressed successfully.");
       } else {
-        setError("Compression failed.");
+        setError("Compression failed. Please try again.");
       }
     } catch (err) {
-      setError("Server error. Please try again.");
+      console.error(err);
+      setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -43,6 +44,7 @@ export default function CompressPDF50kbPage() {
   return (
     <main className="min-h-screen bg-[#0b1020] text-white px-4 py-10">
       <section className="max-w-5xl mx-auto">
+
         {/* HERO */}
         <div className="text-center mb-10">
           <div className="inline-block px-4 py-2 rounded-full bg-blue-600/20 border border-blue-500 text-blue-400 text-sm mb-5">
@@ -63,10 +65,12 @@ export default function CompressPDF50kbPage() {
 
         {/* MAIN CARD */}
         <div className="bg-[#121933] border border-[#26304f] rounded-[32px] p-6 md:p-10 shadow-2xl">
+
           <UploadBox file={file} setFile={setFile} />
 
           {/* INFO */}
           <div className="grid md:grid-cols-3 gap-4 mt-8">
+
             <div className="bg-[#0d1328] rounded-2xl p-5 border border-[#1e2a4a]">
               <h3 className="text-lg font-semibold mb-2">Exact Target</h3>
               <p className="text-gray-400 text-sm">
@@ -84,9 +88,10 @@ export default function CompressPDF50kbPage() {
             <div className="bg-[#0d1328] rounded-2xl p-5 border border-[#1e2a4a]">
               <h3 className="text-lg font-semibold mb-2">Secure Files</h3>
               <p className="text-gray-400 text-sm">
-                Uploaded files are automatically deleted after processing.
+                Files are auto-deleted after processing.
               </p>
             </div>
+
           </div>
 
           {/* BUTTON */}
@@ -121,10 +126,12 @@ export default function CompressPDF50kbPage() {
               <DownloadButton url={downloadUrl} />
             </div>
           )}
+
         </div>
 
-        {/* SEO CONTENT */}
+        {/* SEO SECTION */}
         <div className="mt-16 grid md:grid-cols-2 gap-6">
+
           <div className="bg-[#121933] border border-[#26304f] rounded-3xl p-6">
             <h2 className="text-2xl font-bold mb-4">
               Why Use Toolzy PDF Compressor?
@@ -132,10 +139,10 @@ export default function CompressPDF50kbPage() {
 
             <ul className="space-y-3 text-gray-400">
               <li>• Compress PDF to exact 50KB target</li>
-              <li>• Free online compression tool</li>
-              <li>• Mobile friendly design</li>
-              <li>• Fast upload and download</li>
-              <li>• Secure cloud processing</li>
+              <li>• Free online tool</li>
+              <li>• Fast cloud processing</li>
+              <li>• Mobile friendly</li>
+              <li>• Secure uploads</li>
             </ul>
           </div>
 
@@ -144,13 +151,14 @@ export default function CompressPDF50kbPage() {
               Best For Government Forms
             </h2>
 
-            <p className="text-gray-400 leading-8">
-              Compress PDF files for scholarship forms, job applications,
-              university admissions, exam portals and online government uploads
-              instantly on toolzy.online.
+            <p className="text-gray-400 leading-7">
+              Use this tool for job applications, scholarships, university forms,
+              and government portals where file size limits are strict.
             </p>
           </div>
+
         </div>
+
       </section>
     </main>
   );
