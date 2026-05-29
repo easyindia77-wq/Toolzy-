@@ -3,20 +3,38 @@ const API_URL =
   "https://api.toolzy.online/api";
 
 /* =========================
+   HELPER FUNCTION
+========================= */
+
+async function request(endpoint: string, formData: FormData) {
+  try {
+    const res = await fetch(`${API_URL}${endpoint}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data?.message || "API request failed");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("API Error:", error);
+    throw error;
+  }
+}
+
+/* =========================
    COMPRESS PDF
 ========================= */
 
 export async function compressPDF(file: File) {
   const formData = new FormData();
+  formData.append("pdf", file);
 
-  formData.append("PDF", file);
-
-  const response = await fetch(`${API_URL}/compress`, {
-    method: "POST",
-    body: formData,
-  });
-
-  return response.json();
+  return request("/compress", formData);
 }
 
 /* =========================
@@ -30,12 +48,7 @@ export async function mergePDF(files: File[]) {
     formData.append("pdfs", file);
   });
 
-  const response = await fetch(`${API_URL}/merge`, {
-    method: "POST",
-    body: formData,
-  });
-
-  return response.json();
+  return request("/merge", formData);
 }
 
 /* =========================
@@ -49,12 +62,7 @@ export async function imageToPDF(files: File[]) {
     formData.append("images", file);
   });
 
-  const response = await fetch(`${API_URL}/image-to-PDF`, {
-    method: "POST",
-    body: formData,
-  });
-
-  return response.json();
+  return request("/image-to-pdf", formData);
 }
 
 /* =========================
@@ -63,37 +71,25 @@ export async function imageToPDF(files: File[]) {
 
 export async function pdfToWord(file: File) {
   const formData = new FormData();
-
   formData.append("pdf", file);
 
-  const response = await fetch(`${API_URL}/PDF-to-word`, {
-    method: "POST",
-    body: formData,
-  });
-
-  return response.json();
+  return request("/pdf-to-word", formData);
 }
 
 /* =========================
    RESIZE PDF
 ========================= */
 
-export async function resizePDF(
-  file: File,
-  targetSize: string
-) {
+export async function resizePDF(file: File, targetSize: string) {
   const formData = new FormData();
-
-  formData.append("PDF", file);
-
+  formData.append("pdf", file);
   formData.append("targetSize", targetSize);
 
-  const response = await fetch(`${API_URL}/resize`, {
-    method: "POST",
-    body: formData,
-  });
-
-  return response.json();
+  return request("/resize", formData);
 }
+
+/* =========================
+   EXPORT API URL
+========================= */
 
 export default API_URL;
