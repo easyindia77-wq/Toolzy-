@@ -4,9 +4,9 @@ import { useState } from "react";
 import UploadBox from "../../components/UploadBox";
 import Loader from "../../components/Loader";
 import DownloadButton from "../../components/DownloadButton";
-import { compressPdf } from "../../lib/api";
+import { compressPDF } from "../../lib/api";
 
-export default function CompressPdf50kbPage() {
+export default function CompressPDF50kbPage() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -25,7 +25,7 @@ export default function CompressPdf50kbPage() {
     setDownloadUrl("");
 
     try {
-      const data = await compressPdf(file);
+      const data = await compressPDF(file);
 
       if (data.success) {
         setDownloadUrl(data.downloadUrl);
