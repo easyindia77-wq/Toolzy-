@@ -1,0 +1,17 @@
+# robots.txt for toolzy.online
+
+User-agent: *
+Allow: /
+
+# Block sensitive backend/admin paths (future-safe)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /uploads/
+Disallow: /temp/
+
+# Sitemap (add when you generate it)
+Sitemap: https://toolzy.online/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 2
