@@ -9,7 +9,7 @@ const API_URL =
 export async function compressPDF(file: File) {
   const formData = new FormData();
 
-  formData.append("pdf", file);
+  formData.append("PDF", file);
 
   const response = await fetch(`${API_URL}/compress`, {
     method: "POST",
@@ -49,7 +49,7 @@ export async function imageToPDF(files: File[]) {
     formData.append("images", file);
   });
 
-  const response = await fetch(`${API_URL}/image-to-pdf`, {
+  const response = await fetch(`${API_URL}/image-to-PDF`, {
     method: "POST",
     body: formData,
   });
@@ -66,7 +66,7 @@ export async function pdfToWord(file: File) {
 
   formData.append("pdf", file);
 
-  const response = await fetch(`${API_URL}/pdf-to-word`, {
+  const response = await fetch(`${API_URL}/PDF-to-word`, {
     method: "POST",
     body: formData,
   });
@@ -84,7 +84,7 @@ export async function resizePDF(
 ) {
   const formData = new FormData();
 
-  formData.append("pdf", file);
+  formData.append("PDF", file);
 
   formData.append("targetSize", targetSize);
 
