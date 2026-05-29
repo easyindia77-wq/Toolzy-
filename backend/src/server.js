@@ -16,6 +16,20 @@ const { startCleanupService } = require("./services/cleanupService");
 const app = express();
 
 /* =========================
+   CORS CONFIGURATION (FIXED)
+========================= */
+
+app.use(cors({
+  origin: [
+    "https://toolzy.online",
+    "https://www.toolzy.online",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+
+/* =========================
    REQUIRED DIRECTORIES
 ========================= */
 
@@ -28,7 +42,6 @@ const requiredFolders = [
 requiredFolders.forEach((folder) => {
   if (!fs.existsSync(folder)) {
     fs.mkdirSync(folder, { recursive: true });
-
     console.log(`📁 Created folder: ${folder}`);
   }
 });
@@ -37,10 +50,7 @@ requiredFolders.forEach((folder) => {
    MIDDLEWARE
 ========================= */
 
-app.use(cors());
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 // rate limit
@@ -60,13 +70,9 @@ app.use(
 ========================= */
 
 app.use("/api/compress", compressRoute);
-
 app.use("/api/merge", mergeRoute);
-
 app.use("/api/image-to-pdf", imageToPdfRoute);
-
 app.use("/api/pdf-to-word", pdfToWordRoute);
-
 app.use("/api/resize", resizeRoute);
 
 /* =========================
